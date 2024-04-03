@@ -1,0 +1,8 @@
+spring:
+  jpa:
+    generate-ddl: true
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://postgres:5432/hotel_booking
+    username: postgres
+    password: postgres
