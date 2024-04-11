@@ -22,7 +22,7 @@ public class HotelService {
 	public HotelEntity findById(UUID id) {
 		return hotelRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(
-						MessageFormat.format("Отель с id = {id} не найден", id))
+						MessageFormat.format("Отель с id = {0} не найден", id))
 				);
 	}
 

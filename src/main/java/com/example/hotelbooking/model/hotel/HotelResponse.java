@@ -1,4 +1,4 @@
-package com.example.hotelbooking.model;
+package com.example.hotelbooking.model.hotel;
 
 import java.util.UUID;
 import lombok.Data;

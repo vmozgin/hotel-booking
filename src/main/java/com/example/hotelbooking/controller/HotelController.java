@@ -2,9 +2,10 @@ package com.example.hotelbooking.controller;
 
 import com.example.hotelbooking.entity.HotelEntity;
 import com.example.hotelbooking.mapper.HotelMapper;
-import com.example.hotelbooking.model.HotelRequest;
-import com.example.hotelbooking.model.HotelResponse;
+import com.example.hotelbooking.model.hotel.HotelRequest;
+import com.example.hotelbooking.model.hotel.HotelResponse;
 import com.example.hotelbooking.service.HotelService;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -34,14 +35,14 @@ public class HotelController {
 	}
 
 	@PostMapping
-	public ResponseEntity<HotelResponse> create(@RequestBody HotelRequest request) {
+	public ResponseEntity<HotelResponse> create(@RequestBody @Valid HotelRequest request) {
 		HotelEntity newHotel = hotelService.create(hotelMapper.hotelRequestToHotelEntity(request));
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(hotelMapper.hotelEntityToHotelResponse(newHotel));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<HotelResponse> update(@PathVariable UUID id, @RequestBody HotelRequest request) {
+	public ResponseEntity<HotelResponse> update(@PathVariable UUID id, @RequestBody @Valid HotelRequest request) {
 		HotelEntity hotelForUpdate = hotelMapper.hotelRequestToHotelEntity(request);
 		hotelForUpdate.setId(id);
 
