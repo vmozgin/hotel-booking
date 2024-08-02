@@ -1,0 +1,9 @@
+{
+	"id": "${json-unit.any-string}",
+	"name": "test_name1",
+	"title": "test_title1",
+	"city": "test_city1",
+	"distanceFromCenter": 3000,
+	"rating": null,
+	"ratingCount": null
+}
