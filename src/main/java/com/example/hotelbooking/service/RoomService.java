@@ -35,7 +35,7 @@ public class RoomService {
 	}
 
 	public RoomEntity update(RoomEntity entity) {
-		RoomEntity existedEntity = findById(entity.getId());
+		var existedEntity = findById(entity.getId());
 		existedEntity.setName(entity.getName());
 		existedEntity.setDescription(entity.getDescription());
 		existedEntity.setNumber(entity.getNumber());

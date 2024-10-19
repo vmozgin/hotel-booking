@@ -1,6 +1,7 @@
 package com.example.hotelbooking.controller;
 
 import com.example.hotelbooking.exception.EntityNotFoundException;
+import com.example.hotelbooking.exception.UserExistException;
 import com.example.hotelbooking.model.ErrorResponse;
 import java.time.Instant;
 import java.util.List;
@@ -32,5 +33,11 @@ public class ExceptionHandlerController {
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 				.body(new ErrorResponse(errorMessage, Instant.now()));
+	}
+
+	@ExceptionHandler(UserExistException.class)
+	public ResponseEntity<ErrorResponse> userExist(UserExistException ex) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+						.body(new ErrorResponse(ex.getLocalizedMessage(), Instant.now()));
 	}
 }

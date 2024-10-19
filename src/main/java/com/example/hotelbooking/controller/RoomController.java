@@ -34,14 +34,14 @@ public class RoomController {
 
 	@PostMapping
 	public ResponseEntity<RoomResponse> create(@RequestBody @Valid RoomRequest request) {
-		RoomEntity newRoom = roomService.create(roomMapper.roomRequestToRoomEntity(request));
+		var newRoom = roomService.create(roomMapper.roomRequestToRoomEntity(request));
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(roomMapper.roomEntityToRoomResponse(newRoom));
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<RoomResponse> update(@PathVariable UUID id, @RequestBody @Valid RoomRequest request) {
-		RoomEntity roomForUpdate = roomMapper.roomRequestToRoomEntity(request);
+		var roomForUpdate = roomMapper.roomRequestToRoomEntity(request);
 		roomForUpdate.setId(id);
 
 		return ResponseEntity.ok(roomMapper.roomEntityToRoomResponse(roomService.update(roomForUpdate)));
