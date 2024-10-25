@@ -1,7 +1,10 @@
 package com.example.hotelbooking.model.user;
 
-import com.example.hotelbooking.entity.enums.Role;
+
+import java.util.List;
 import java.util.UUID;
+
+import com.example.hotelbooking.model.enums.Role;
 import lombok.Data;
 
 @Data
@@ -11,5 +14,5 @@ public class UserResponse {
   private String name;
   private String email;
   private String password;
-  private Role role;
+  private List<Role> roles;
 }

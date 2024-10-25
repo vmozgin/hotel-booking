@@ -1,12 +1,15 @@
 package com.example.hotelbooking.service;
 
 import com.example.hotelbooking.entity.UserEntity;
+import com.example.hotelbooking.entity.UserRoleEntity;
 import com.example.hotelbooking.exception.EntityNotFoundException;
 import com.example.hotelbooking.repository.UserRepository;
-import java.text.MessageFormat;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.text.MessageFormat;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -20,15 +23,26 @@ public class UserService {
   }
 
   public UserEntity create(UserEntity user) {
+    if (user.getRoles() != null) {
+      for (UserRoleEntity role : user.getRoles()) {
+        role.setUser(user);
+      }
+    }
     return userRepository.save(user);
   }
 
-  public UserEntity update(UserEntity user) {
-    var existedUser = findById(user.getId());
-    existedUser.setRole(user.getRole());
-    existedUser.setName(user.getName());
-    existedUser.setEmail(user.getEmail());
-    existedUser.setPassword(user.getPassword());
+  public UserEntity update(UserEntity userForUpdate) {
+    var existedUser = findById(userForUpdate.getId());
+    existedUser.setName(userForUpdate.getName());
+    existedUser.setEmail(userForUpdate.getEmail());
+    existedUser.setPassword(userForUpdate.getPassword());
+    Optional.ofNullable(userForUpdate.getRoles())
+            .ifPresent(rolesForUpdate -> rolesForUpdate.stream()
+                    .filter(roleForUpdate -> !existedUser.getRoles().contains(roleForUpdate))
+                    .forEach(roleForUpdate -> {
+                      roleForUpdate.setUser(existedUser);
+                      existedUser.getRoles().add(roleForUpdate);
+                    }));
 
     return userRepository.save(existedUser);
   }
